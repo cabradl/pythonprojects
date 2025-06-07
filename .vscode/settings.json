@@ -1,0 +1,13 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sourcery.token": "/Users/cabradl/Documents/source/pythonprojects",
+    "sqltools.connections": [
+        {
+            "previewLimit": 60,
+            "driver": "SQLite",
+            "name": "sqlitePY",
+            "group": "PY",
+            "database": "${workspaceFolder:pythonprojects}/test2.db"
+        }
+    ]
+}
