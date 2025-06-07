@@ -1,0 +1,56 @@
+schemaVersion: 2.2.0
+metadata:
+  name: flask-app
+  version: 1.0.0
+  displayName: Flask Application
+  description: Development environment for Flask application with SQLAlchemy
+  tags:
+    - python
+    - flask
+    - web
+
+components:
+  - name: python
+    container:
+      image: python:3.9
+      memoryLimit: 1Gi
+      mountSources: true
+      endpoints:
+        - name: flask-app
+          targetPort: 5000
+          exposure: public
+      volumeMounts:
+        - name: sqlite-data
+          path: /app/data
+
+  - name: sqlite-data
+    volume:
+      size: 1Gi
+
+commands:
+  - id: install-dependencies
+    exec:
+      component: python
+      commandLine: pip install -r requirements.txt
+      workingDir: ${PROJECT_SOURCE}
+      group:
+        kind: build
+        isDefault: true
+
+  - id: run-app
+    exec:
+      component: python
+      commandLine: python app.py
+      workingDir: ${PROJECT_SOURCE}
+      group:
+        kind: run
+        isDefault: true
+
+  - id: run-tests
+    exec:
+      component: python
+      commandLine: pytest
+      workingDir: ${PROJECT_SOURCE}
+      group:
+        kind: test
+        isDefault: true
