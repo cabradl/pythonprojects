@@ -1,20 +1,23 @@
 """Test cases for the Flask application."""
 import unittest
 import json
-from app import app, db, Record
+from app import app, db
+myDB = 'sqlite:///test.db'
 
 
 class TestFlaskApp(unittest.TestCase):
     def setUp(self):
         """Set up test client and database."""
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-        self.client = app.test_client()
+        app.config['SQLALCHEMY_DATABASE_URI'] = myDB
+        self.client_context = app.test_client()
+        self.client = self.client_context.__enter__()
         self.client.testing = True
         with app.app_context():
             db.create_all()
 
     def tearDown(self):
         """Clean up after each test."""
+        self.client_context.__exit__(None, None, None)
         with app.app_context():
             db.session.remove()
             db.drop_all()
