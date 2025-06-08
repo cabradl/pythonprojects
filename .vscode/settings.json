@@ -9,5 +9,8 @@
             "group": "PY",
             "database": "${workspaceFolder:pythonprojects}/test2.db"
         }
-    ]
+    ],
+    "AREPL.pythonPath": "/Users/cabradl/Documents/source/pythonprojects/.venv/bin/python",
+    "wolf.pythonPath": "/Users/cabradl/Documents/source/pythonprojects/.venv/bin/python",
+    "livecode.pythonPath": "/Users/cabradl/Documents/source/pythonprojects/.venv/bin/python"
 }
